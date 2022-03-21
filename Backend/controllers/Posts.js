@@ -1,5 +1,6 @@
 const mysqlconnection = require ('../dataBase/mysql');
 const fs = require('fs');
+const { isArgumentsObject } = require('util/types');
 
 
 exports.createPost = (req,res, next) => {
@@ -8,7 +9,11 @@ exports.createPost = (req,res, next) => {
     req.body.post,
     req.body.pseudo,
   ]
-
+const image = new Image({
+  ...imageObject,
+imageUrl: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`
+});
+thing.save()
   mysqlconnection.query(
     "INSERT INTO `posts` (`id_user`, `message`,`pseudo`) VALUES (?,?,?)", data, (error, results)=>{
       if(error){

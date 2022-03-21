@@ -78,7 +78,7 @@ exports.signup = (req, res) => {
             )
             console.log(token);
 
-            res.status(201).json({
+            res.status(200).json({
               userId: results[0].id_user,
               token
             })
