@@ -9,8 +9,8 @@ const postRoutes = require('../controllers/Posts');
 const like = require('../controllers/like');
 
 
-router.get('/',multer, postRoutes.getAllPost);
-router.post('/', multer, postRoutes.createPost);
+router.get('/', postRoutes.getAllPost);
+router.post('/', postRoutes.createPost);
 router.post('/delete/:postID', postRoutes.deletePost);
 router.post('/update/:postID&:message', postRoutes.updatePost);
 
