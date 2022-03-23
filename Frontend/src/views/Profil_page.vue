@@ -1,29 +1,74 @@
 <template>
     <div id="Profil_page">
+        <h1>Bienvenue {{form.pseudo}}</h1>
         <div class="contenair_profil">
-            <div class="photo_profil">photo <input type="file" id="img_post" name="img_post" accept="image/png, image/jpeg"></div>
-               <form class="contenair_form">
+            
+            <div class="photo_profil">Ton avatar<input type="file" id="img_post" name="img_post" accept="image/png, image/jpeg"></div>
+                <form class="contenair_form">
                    <div class="cont_profil">
-                   <label for="text" class="profil_pseudo">Pseudo
-                    <input type="text" class="input_pseudo">
+                    <label for="text" class="profil_pseudo">Pseudo
+                        <input type="text" class="input_pseudo">
                     </label>
                     <label for="email" class="profil_email">Email
-                    <input type="email" class="input_email">
+                        <input type="email" class="input_email">
                     </label>
-                     <label for="password" class="profil_password">password
-                    <input type="password" class="input_password">
+                    <label for="password" class="profil_password">password
+                        <input type="password" class="input_password" disabled>
                     </label>
                     <div class="boutton">
                     <button class="button_save">Enregister</button>
-                    <button class="button_delete">Supprimer</button>
-                    </div>
-                    </div>
+                
+                    <form  v-on:submit.prevent="deleteProfil">
+                        <button class="button_delete">Supprimer</button>
+                    </form>
+                </div>
+                </div>
                </form>
             
              </div>
     </div>
 </template>
 
+<script>
+
+import axios from 'axios';
+
+export default {
+  
+  name: 'ProfilFormAxios',
+    data(){
+            return{
+                form: {
+                    pseudo: localStorage.getItem('pseudo'),
+                    email: '',
+                },
+            }
+        },
+
+    
+        methods:{
+        deleteProfil(){
+              var usrID = localStorage.getItem('id_user');
+            console.log(usrID);
+            axios.get(`http://localhost:3000/api/Profil/Delete/`+usrID)
+            .then(response => {
+              console.log(response);
+            })
+            .catch(e => {
+                console.log("err:",e);
+            });
+        },
+        mounted(){
+        
+        },
+        created(){
+        
+        },
+    }
+}
+
+
+</script>
 
 <style scoped>
 
@@ -63,7 +108,7 @@
 
 .cont_profil{
     display: flex;
-    flex-direction:column;
+    flex-direction: column;
     justify-content: space-around;
 
  height: 30rem;

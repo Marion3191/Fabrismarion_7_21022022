@@ -33,11 +33,6 @@ exports.signup = (req, res) => {
 
     .catch(error => res.status(404).json( error));
 };
-
-
-
-
-
   exports.login = (req, res) => {
     const email =  req.body.email;
   
@@ -88,4 +83,20 @@ exports.signup = (req, res) => {
         }
       }
     )
-    }
+    };
+
+    
+    exports.getPseudo = (req, res) => {
+      mysqlconnection.query(
+        "SELECT `pseudo`, `isAdmin` FROM `users` WHERE `email`=?",req.params.email, (error, results) => {
+          if(error){
+            console.log(error);
+            res.status(500).json({error});
+          }else{
+            console.log("results:");
+            console.log(results);
+            res.status(200).json({results});
+          }
+        }
+      )
+    };

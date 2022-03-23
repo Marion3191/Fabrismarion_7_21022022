@@ -16,8 +16,8 @@
     <div id="container_posts" >
       <div v-for="post in posts" :key="post" class="posts">
         <div v-for="item in post" :key="item" class="message">
-          <h3>Le {{item.timestamp}} par {{item.pseudo}}</h3>
-          <div v-if="item.id_user === form.id_user || form.isAdmin === 1">
+          <h5>Le {{item.timestamp}} par {{item.pseudo}}</h5>
+          <div v-if="item.id_user == form.id_user || form.isAdmin == 1">
             <textarea class="view_post" v-model="item.message"  type="text"  required />
             <form  v-on:submit.prevent="deletePost(item.id_post,this.value)">
               <button class="btn_supPost">Supprimer</button>
@@ -46,7 +46,7 @@
                       </div>
                       <div class="input_com_container">
                         <textarea class="edit_com" v-model="obj.commentaire" type="text"  required/>
-                        <div v-if="obj.id_user === form.id_user || form.isAdmin === 1">
+                        <div v-if="obj.id_user == form.id_user || form.isAdmin == 1">
                           <form  v-on:submit.prevent="deleteCom(obj.id_commentaire)">
                             <button class="btn_supDel">supprimer</button>
                           </form>
@@ -90,14 +90,13 @@ export default {
 
         return{
             form: {
-              //A rendre dynamique
-              id_user:localStorage.getItem("id_user"),
-              pseudo: '',
-              isAdmin: 0,
-              //
+              id_user: localStorage.getItem("id_user"),
+              pseudo: localStorage.getItem("pseudo"),
+              isAdmin: localStorage.getItem("isAdmin"),
               show: false,
             },
-  posts: [],
+            posts: [],
+            coms: [],
         }
     },
 
@@ -118,7 +117,7 @@ export default {
         submitCom(postID){
             axios.post('http://localhost:3000/api/Posts/com'+postID, this.form)
                  .then((res) => {
-                    console.log(res);
+                    console.log(+res);
                  })
                  .catch((error) => {
                     console.log(error)
@@ -167,7 +166,6 @@ export default {
             var params = comID;
             params += "&";
             params += message;
-            console.log(params);
             axios.post('http://localhost:3000/api/Posts/com/update/'+params, this.form)
                  .then((res) => {
                     console.log(res);
@@ -179,18 +177,24 @@ export default {
                  });
         }
     },
-
+      mounted() {
+        if (localStorage.id_user && localStorage.pseudo && localStorage.isAdmin) {
+          this.id_user = localStorage.id_user;
+          this.pseudo = localStorage.pseudo;
+          this.isAdmin = localStorage.isAdmin;
+        }
+      },
      created() {
         axios.get(`http://localhost:3000/api/Posts`)
         /*, {
     headers: { Authorization: `Bearer ${localStorage.getItem("token")}` }
 }*/
             .then(response => {
-              console.log(response.data,"teste2");
+              console.log(response.data);
                 this.posts = response.data;
             })
             .catch(e => {
-                console.log("err:",e)
+                console.log("err:",e);
             });
         axios.get(`http://localhost:3000/api/Posts/com`)
             .then(response => {
@@ -198,7 +202,7 @@ export default {
                 this.coms = response.data;
             })
             .catch(e => {
-                console.log("err:",e)
+                console.log("err:",e);
             });
     }
 }

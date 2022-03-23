@@ -32,7 +32,7 @@ export default {
             form: {
                 name: '',
                 email: '',
-                password:''
+                password:'',
             }
         }
     },
@@ -40,17 +40,30 @@ export default {
         submitForm(){
             axios.post('http://localhost:3000/api/auth/login', this.form)
                  .then((res) => {
-                    console.log(res,res.userId, res.token, res.data.token, "teste3");//redirection a cette endroi
-                    //localstorage    
+                    //console.log(res,res.userId, res.token, res.data.token, "teste3");//redirection a cette endroi
+                    //localstorage  
+                    console.log(res);  
                         localStorage.setItem('id_user',JSON.stringify( res.data.userId));
                         localStorage.setItem('token', res.data.token);
+                        this.test();
                  })
                  .catch((error) => {
                     console.log(error, "teste4")
                  }).finally(() => {
                      //Perform action in always
                  });
-        }
+                 
+        },
+        test(){
+          axios.get(`http://localhost:3000/api/auth/getPseudo/`+this.form.email, this.form)
+          .then(res => {
+            localStorage.setItem('pseudo',res.data.results[0].pseudo );
+            localStorage.setItem('isAdmin',res.data.results[0].isAdmin );
+          })
+          .catch(e => {
+            console.log("err:",e);
+          });
+        },
     }
 }
 

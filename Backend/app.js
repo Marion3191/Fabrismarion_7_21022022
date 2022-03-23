@@ -1,6 +1,7 @@
 const express = require('express');
 const mysql = require('./dataBase/mysql');
 const postRoutes = require('./routes/Posts');
+const profilRoutes = require('./routes/Profil');
 const userRoutes = require('./routes/user');
 const path = require('path');
 const cors = require('cors')
@@ -24,6 +25,7 @@ app.use(express.json());
 app.use('/images', express.static(path.join(__dirname, 'images')));
 
 app.use('/api/Posts', postRoutes);//stuffroutes
+app.use('/api/Profil', profilRoutes);//stuffroutes
 app.use('/api/auth', userRoutes);//userroutes
 
 
