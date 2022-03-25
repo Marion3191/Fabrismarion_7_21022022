@@ -2,37 +2,30 @@
     <div id="Profil_page">
         <h1>Bienvenue {{form.pseudo}}</h1>
         <div class="contenair_profil">
-            
             <div class="photo_profil">Ton avatar
                 <img class="avatar" :src='form.avatarURL'/>
-                 <form  v-on:submit.prevent="sendPics">
-                    <input type="file" id="image" name="image" accept="image/png, image/jpeg">
-                    
-                    <button class="button_upload" >envoyer</button>
+                <form  v-on:submit.prevent="sendPics">
+                <input type="file" id="image" name="image" accept="image/png, image/jpeg">
+                <button class="button_upload" >envoyer</button>
                 </form>
-                </div>
+            </div>
                 <form class="contenair_form">
-                   <div class="cont_profil">
-                    <label for="text" class="profil_pseudo">Pseudo
-                        <input type="text" class="input_pseudo">
-                    </label>
-                    <label for="email" class="profil_email">Email
-                        <input type="email" class="input_email">
-                    </label>
-                    <label for="password" class="profil_password">password
-                        <input type="password" class="input_password" disabled>
-                    </label>
-                    <div class="boutton">
-                    <button class="button_save">Enregister</button>
-                
-                    <form  v-on:submit.prevent="deleteProfil">
-                        <button class="button_delete">Supprimer</button>
-                    </form>
-                </div>
-                </div>
+                    <div class="cont_profil">
+                        <label for="text" class="profil_pseudo">Pseudo
+                            <input type="text" class="input_pseudo">
+                        </label>
+                        <label for="email" class="profil_email">Email
+                            <input type="email" class="input_email">
+                        </label>
+                        <div class="boutton">
+                            <button class="button_save">Enregister</button>
+                            <form  v-on:submit.prevent="deleteProfil">
+                                <button class="button_delete">Supprimer</button>
+                            </form>
+                        </div>
+                    </div>
                </form>
-            
-             </div>
+            </div>
     </div>
 </template>
 
@@ -106,34 +99,42 @@ export default {
 </script>
 
 <style scoped>
-
-
 #Profil_page {
-   background-image: url(../assets/icon-left-font.svg);
-  
+background-image: url(../assets/icon-left-font.svg);
+background-repeat: no-repeat;
+ width: 100%;
+ display: flex;
+ flex-direction: column;
+ justify-content: center;
+ align-items: center;
 }
+
 .avatar {
     max-width:50px;
     height:auto;
 }
+
 .contenair_profil{
-    background-color: rgb(250, 168, 168);
-    width: 100%;
+    width: 25%;
     height: 40rem;
     display: flex;
     flex-direction: column;
     flex-wrap: wrap;
     justify-content: center;
     align-items: center;
-     border: 2px solid rgb(240, 135, 135);
-     border-radius: 1rem;
+    border: 3px solid rgb(247, 6, 6);
+    background-color: rgb(252, 195, 195);
+    border-radius: 1rem;
 }
 
 .photo_profil{
-    width: 8rem;
-    height: 8rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 10rem;
+    height: 10rem;
     border-radius:5rem ;
-   border: 2px solid rgb(240, 135, 135);
+   border: 2px solid rgb(247, 6, 6);
 
 }
 
@@ -148,8 +149,7 @@ export default {
     display: flex;
     flex-direction: column;
     justify-content: space-around;
-
- height: 30rem;
+    height: 30rem;
 }
 
 .profil_pseudo{
@@ -176,31 +176,20 @@ export default {
     margin-left: 2rem;
 }
 
-.profil_password{
-     font-size: 1.2rem;
-     font-weight: 600;
-   height: 3rem; 
-}
-
-.input_password{
-    width: 15rem;
-     height: 2.6rem;
-    margin-left: 2rem;
-}
-
 .boutton{
     height: 6rem;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
 }
+
 .button_save{
     font-size: 1.2rem;
     width: 35%;
     height: 2rem;
     align-self: center;
 }
-*{outline: solid 1px rgb(72, 255, 0);}
+
 
 .button_delete{
     font-size: 1.2rem;
@@ -208,5 +197,4 @@ export default {
     height: 2rem;
     align-self: center;
 }
-
 </style>

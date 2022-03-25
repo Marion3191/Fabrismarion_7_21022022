@@ -1,23 +1,23 @@
 <template>
   <div id="Inscription_page">
-    <h1>Inscription</h1>
- <div class="formulaire">
-							<form v-on:submit.prevent="submitForm">
-							<div class="form-group">
-								<label class="title" for="pseudo">Pseudo</label>
-								<input type="text" class="form-control" id="pseudo" placeholder="Pseudo" v-model="form.pseudo">
-							</div>
-							<div class="form-group">
-								<label class="title" for="email"> Email</label>
-								<input id="email" class="form-control" type="email" v-model="form.email" required >
-							</div>
-							<div class="form-group">
-								<label class="title"  for="password">Password</label>
-								<input id="password" class="form-control" type="password" v-model="form.password" required/>
-							</div>
-								<button onclick="window.location.href = 'http://localhost:8080/Inscription_page#/Posts_page';" class="button" type="submit">Envoyer</button>
-							</form>
-						</div>
+    <div class="formulaire_inscription">
+      <h1>Inscription</h1>
+			<form v-on:submit.prevent="submitForm" id="form_inscription">
+				<div class="form-group">
+					<label class="title" for="pseudo">Pseudo</label>
+					<input type="text" class="form-control" id="pseudo" placeholder="Pseudo" v-model="form.pseudo">
+				</div>
+				<div class="form-group">
+					<label class="title" for="email"> Email</label>
+					<input id="email" class="form-control" type="email" v-model="form.email" required >
+				</div>
+				<div class="form-group">
+					<label class="title"  for="password">Password</label>
+					<input id="password" class="form-control" type="password" v-model="form.password" required/>
+				</div>
+				<button class="button" type="submit">Envoyer</button>
+				</form>
+		</div>
   </div>
 </template>
 
@@ -52,45 +52,52 @@ export default {
 }
 </script>
 <style scoped>
-
 #Inscription_page {
-  background-image: url(../assets/icon-left-font.svg);
+  background-image: url(../assets/icon-above-font.svg);
+  background-repeat: no-repeat;
+  background-position: 50% 50% ;
   font-family: Avenir, Helvetica, Arial, sans-serif;
-  color: #070606;
+  color: #0e0d0d;
+  width: 100%;
+  height: 50rem;
   display: flex;
   flex-direction: column;
-  justify-content: start;
-  text-align: center;
-  font-size: 1.5rem;  
-  padding-bottom: 2rem;
-  height: 100rem;
-}
-h1{
-  color: rgb(7, 7, 7);
-}
-input{
-  border-radius: 1rem;
-  width:15rem;
-  height: 1.6rem;
-  border-color: rgb(8, 8, 8);
-}
-#email{
-  margin-left: 1.5rem;
-  margin-top: 1rem;
+  align-items: center;
 }
 
-#password{
-  margin-top: 1rem;
-  margin-right: 1.5rem;
+.formulaire_inscription{
+    width: 30%;
+  height: 30rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
-.title{
+
+#form_inscription{
+   width: 70%;
+  height: 20rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+}
+
+input{
+  border-radius: 1rem;
+  width: 15rem;
+  height: 2rem;
+}
+
+label{
+  font-size: 1.2rem;
   font-weight: 600;
-margin-right: 1rem;
+  padding: 1rem;
 }
 
 .button{
-  margin-top: 1.5rem;
-  margin-left: 5rem;
+  width: 10rem;
+  align-self: center;
+  border-radius: 1rem;
 }
 </style>
 

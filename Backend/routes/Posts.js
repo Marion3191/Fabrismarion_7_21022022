@@ -6,7 +6,7 @@ const auth = require('../middleware/auth');
 const multer = require('../middleware/multer-config');
 
 const postRoutes = require('../controllers/Posts');
-const like = require('../controllers/like');
+
 
 
 router.get('/', postRoutes.getAllPost);
