@@ -88,7 +88,9 @@ exports.signup = (req, res) => {
     
     exports.getPseudo = (req, res) => {
       mysqlconnection.query(
-        "SELECT `pseudo`, `isAdmin` FROM `users` WHERE `email`=?",req.params.email, (error, results) => {
+        //SELECT `id_user`, `pseudo`, `email`, `password`, `isAdmin`, `urlAvatar` FROM `users` WHERE `email`=?
+        //SELECT `pseudo`, `isAdmin`,'urlAvatar' FROM `users` WHERE `email`=?
+        "SELECT `pseudo`,`isAdmin`, `urlAvatar` FROM `users` WHERE `email`=?",req.params.email, (error, results) => {
           if(error){
             console.log(error);
             res.status(500).json({error});

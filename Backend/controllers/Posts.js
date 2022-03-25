@@ -8,9 +8,13 @@ exports.createPost = (req,res, next) => {
     req.body.id_user,
     req.body.post,
     req.body.pseudo,
+    imageUrl= ``,
   ]
+  if(req.file){
+  data.imageUrl = `${req.protocol}://${req.get('host')}/images/${req.file.filename}`;
+  }
   mysqlconnection.query(
-    "INSERT INTO `posts` (`id_user`, `message`,`pseudo`) VALUES (?,?,?)", data, (error, results)=>{
+    "INSERT INTO `posts` (`id_user`, `message`,`pseudo`,`imageURL`) VALUES (?,?,?,?)", data, (error, results)=>{
       if(error){
         console.log(error);
         res.status(500).json({error});

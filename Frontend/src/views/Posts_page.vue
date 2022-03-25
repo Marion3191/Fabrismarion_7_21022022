@@ -4,9 +4,9 @@
     <form class="form_post" v-on:submit.prevent="submitForm">
       <div class="post">
       <label for="post" class="input_title">Post</label>
-					<input class="input_post" type="text" placeholder="ton message" v-model="form.post" required/>
+					<input class="input_post" id="postText" type="text" placeholder="ton message" v-model="form.post" required/>
           <div class="input_send">
-            <input type="file" id="img_post" name="img_post" accept="image/png, image/jpeg">
+            <input type="file" id="image" name="image" accept="image/png, image/jpeg" v-change="form.post">
             <button class="btn_sendPost">envoyer</button>
           </div>
       </div>   
@@ -16,10 +16,13 @@
     <div id="container_posts" >
       <div v-for="post in posts" :key="post" class="posts">
         <div v-for="item in post" :key="item" class="message">
-          <h5>Le {{item.timestamp}} par {{item.pseudo}}</h5>
+          <div class ="usrProfile">
+              <h4> {{item.pseudo}} {{item.timestamp}} </h4>
+          </div>
           <div v-if="item.id_user == form.id_user || form.isAdmin == 1">
+            <img class="avatar" :src='item.imageURL'/>
             <textarea class="view_post" v-model="item.message"  type="text"  required />
-            <form  v-on:submit.prevent="deletePost(item.id_post,this.value)">
+            <form  v-on:submit.prevent="deletePost(item.id_post)">
               <button class="btn_supPost">Supprimer</button>
             </form>
             <form  v-on:submit.prevent="updatePost(item.id_post,item.message)">
@@ -93,17 +96,27 @@ export default {
               id_user: localStorage.getItem("id_user"),
               pseudo: localStorage.getItem("pseudo"),
               isAdmin: localStorage.getItem("isAdmin"),
+              avatarURL: localStorage.getItem("avatarURL"),
+              imageURL: new FormData(),
               show: false,
             },
             posts: [],
             coms: [],
+            altText:'',
         }
     },
 
 
     methods:{
         submitForm(){
-            axios.post('http://localhost:3000/api/Posts', this.form)
+          let img = document.getElementById('image').files[0];
+          var formData = new FormData();
+          formData.append('image', img);
+          formData.append('alt_text', this.alt_text);
+          formData.append('id_user', this.id_user);
+          formData.append('pseudo', this.pseudo);
+          formData.append('post', this.form.post);
+            axios.post('http://localhost:3000/api/Posts', formData)
                  .then((res) => {
                     console.log(res);
                  })
@@ -225,7 +238,15 @@ export default {
 .fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
   opacity: 0;
 }
-
+.postImage {
+    max-width:40%x;
+    height:auto;
+}
+.usrProfile {
+  display: flex;
+  flex-direction: row;
+  align-items: left;
+}
 .form_post{
   width: 80%;
   display: flex;

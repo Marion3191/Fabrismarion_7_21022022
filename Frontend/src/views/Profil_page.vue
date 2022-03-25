@@ -3,7 +3,14 @@
         <h1>Bienvenue {{form.pseudo}}</h1>
         <div class="contenair_profil">
             
-            <div class="photo_profil">Ton avatar<input type="file" id="img_post" name="img_post" accept="image/png, image/jpeg"></div>
+            <div class="photo_profil">Ton avatar
+                <img class="avatar" :src='form.avatarURL'/>
+                 <form  v-on:submit.prevent="sendPics">
+                    <input type="file" id="image" name="image" accept="image/png, image/jpeg">
+                    
+                    <button class="button_upload" >envoyer</button>
+                </form>
+                </div>
                 <form class="contenair_form">
                    <div class="cont_profil">
                     <label for="text" class="profil_pseudo">Pseudo
@@ -34,19 +41,39 @@
 import axios from 'axios';
 
 export default {
-  
+  //
   name: 'ProfilFormAxios',
     data(){
             return{
                 form: {
                     pseudo: localStorage.getItem('pseudo'),
                     email: '',
+                    avatarURL:localStorage.getItem('avatarURL'),
+                    alt_text:''
                 },
             }
         },
 
     
         methods:{
+        sendPics(){
+      // Récupération de l'image
+        let img = document.getElementById('image').files[0];
+        var usrID = localStorage.getItem('id_user');
+      // Création d'un formData obligatoire pour envoi de l'image
+        var formData = new FormData();
+        formData.append('image', img);
+        formData.append('alt_text', this.alt_text);
+        // Envoi des données sur l'url du serveur (mettez la votre) en POST en envoyant le formData contenant notre image et notre texte
+        axios.post('http://localhost:3000/api/profil/upload/'+usrID, formData)
+          .then((resp) => {
+            console.log(resp)
+          })
+          .catch((err) => {
+            console.log(err.response)
+          })
+    },
+
         deleteProfil(){
               var usrID = localStorage.getItem('id_user');
             console.log(usrID);
@@ -62,7 +89,15 @@ export default {
         
         },
         created(){
-        
+            var usrID = localStorage.getItem('id_user');
+             axios.get('http://localhost:3000/api/profil/upload/'+usrID)
+            .then(response => {
+              console.log(response.data);
+                this.avatarURL = response.data;
+            })
+            .catch(e => {
+                console.log("err:",e);
+            });
         },
     }
 }
@@ -77,7 +112,10 @@ export default {
    background-image: url(../assets/icon-left-font.svg);
   
 }
-
+.avatar {
+    max-width:50px;
+    height:auto;
+}
 .contenair_profil{
     background-color: rgb(250, 168, 168);
     width: 100%;

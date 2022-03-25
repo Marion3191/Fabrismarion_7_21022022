@@ -33,6 +33,7 @@ export default {
                 name: '',
                 email: '',
                 password:'',
+                urlAvatar:'',
             }
         }
     },
@@ -59,6 +60,7 @@ export default {
           .then(res => {
             localStorage.setItem('pseudo',res.data.results[0].pseudo );
             localStorage.setItem('isAdmin',res.data.results[0].isAdmin );
+            localStorage.setItem('avatarURL',res.data.results[0].urlAvatar );
           })
           .catch(e => {
             console.log("err:",e);
