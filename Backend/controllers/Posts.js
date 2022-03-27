@@ -8,12 +8,14 @@ exports.createPost = (req,res, next) => {
     req.body.id_user,
     req.body.post,
     req.body.pseudo,
-    imageUrl= ``,
+    imageUrl = '',
   ]
   if(req.file){
-  data.imageUrl = `${req.protocol}://${req.get('host')}/images/${req.file.filename}`;
+    data[3] = `${req.protocol}://${req.get('host')}/images/${req.file.filename}`;
+    console.log(data);
   }
-  mysqlconnection.query(
+     mysqlconnection.query(
+    
     "INSERT INTO `posts` (`id_user`, `message`,`pseudo`,`imageURL`) VALUES (?,?,?,?)", data, (error, results)=>{
       if(error){
         console.log(error);
@@ -22,6 +24,7 @@ exports.createPost = (req,res, next) => {
         res.status(200).json({message : "post enregisté"});
       }
   })
+
 
 };
 
