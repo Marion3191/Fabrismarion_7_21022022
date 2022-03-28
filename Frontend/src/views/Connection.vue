@@ -42,6 +42,7 @@ export default {
                     console.log(res);  
                         localStorage.setItem('id_user',JSON.stringify( res.data.userId));
                         localStorage.setItem('token', res.data.token);
+                        localStorage.setItem('isLogged', 1);
                         this.test();
                         this.$router.push('/Posts_page')
                  })
@@ -67,10 +68,11 @@ export default {
 </script>
 
 <style scoped>
+
 #connection {
   background-image: url(../assets/icon-above-font.svg);
   background-repeat: no-repeat;
-  background-position: 50% 50% ;
+  background-position: 50% ;
   font-family: Avenir, Helvetica, Arial, sans-serif;
   color: #0e0d0d;
   width: 100%;
@@ -81,8 +83,8 @@ export default {
 }
 
 .formulaire_connection{
-  width: 30%;
-  height: 30rem;
+  width: 100%;
+  height: auto;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -90,29 +92,54 @@ export default {
 }
 
 #form_connect{
-  width: 70%;
+  width: 100%;
   height: 20rem;
   display: flex;
   flex-direction: column;
   justify-content: space-around;
 }
 
+.form-group{
+  width: 100%;
+}
+
+.form-message{
+  width: 100%;
+}
+
 input{
   border-radius: 1rem;
-  width: 15rem;
+  width: 12rem;
   height: 2rem;
 }
 
 label{
   font-size: 1.2rem;
-  font-weight: 600;
-  padding: 1rem;
+padding: 1rem;
 }
 
 .button{
   width: 10rem;
   align-self: center;
   border-radius: 1rem;
+}
+
+p{
+  margin: -1rem;
+}
+
+
+@media screen and (max-width: 768px){
+  .formulaire_connection{
+    width: 100%;
+  }
+
+  @media screen and (max-width: 425px){
+.form-message{
+  display: flex;
+
+}
+  }
 }
 </style>
 

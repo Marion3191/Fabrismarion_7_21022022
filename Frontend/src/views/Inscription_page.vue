@@ -41,6 +41,7 @@ export default {
             axios.post('http://localhost:3000/api/auth/signup', this.form)
                  .then((res) => {
                     console.log(res);
+                    this.$router.push('/Posts_page')
                  })
                  .catch((error) => {
                   console.log(error);
@@ -98,6 +99,18 @@ label{
   width: 10rem;
   align-self: center;
   border-radius: 1rem;
+}
+
+
+@media screen and (max-width: 768px){
+#Inscription_page {
+  width: 100%;
+}
+
+
+.formulaire_inscription{
+  width: 100%;
+}
 }
 </style>
 

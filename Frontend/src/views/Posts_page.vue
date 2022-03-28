@@ -1,6 +1,6 @@
 <template>
 <!--pour poster un message  -->
-  <div id="Post_page">
+  <div id="Post_page" v-if="form.isLogged == 1">
     <form class="form_post" v-on:submit.prevent="submitForm">
       <div class="post">
         <label for="post" class="input_title">Poste ton message</label>
@@ -18,21 +18,21 @@
         <div v-for="item in post" :key="item" class="message">
           <div class ="usrProfile">
             <p> {{item.pseudo}} {{ item.dateformat}}
- </p>
+            </p>
           </div>
-          <div class="container-button" v-if="item.id_user == form.id_user || form.isAdmin == 1">
+          <div class="container-button" >
             <img class="avatar" :src='item.imageURL'/>
             <textarea class="view_post" v-model="item.message"  type="text"  required />
+            <div v-if="item.id_user == form.id_user || form.isAdmin == 1">
             <form  v-on:submit.prevent="deletePost(item.id_post)">
               <button class="btn_supPost">Supprimer</button>
             </form>
             <form  v-on:submit.prevent="updatePost(item.id_post,item.message)">
               <button class="btn_supPost">Update</button>
             </form>
-          </div>
-          <div v-else>
-            <textarea readonly class="view_post" v-bind:value="item.message" type="text"  required />
-          </div>
+            </div>
+            </div>
+           
           
           <!--pour poster un message  --> 
           <div class="container_commentaires" >
@@ -52,7 +52,7 @@
                     <div v-if="obj.id_post === item.id_post" >  
                       <div class="timestamp">
                         <div class="title_com">
-                          Le {{obj.timestamp}} par {{obj.pseudo}}
+                          Le {{obj.dateformat}} par {{obj.pseudo}}
                         </div>
                         <div class="input_com_container">
                           <textarea class="edit_com" v-model="obj.commentaire" type="text"  required/>
@@ -76,6 +76,9 @@
       </div>                      
      </div>
   </div>
+  <div v-else>
+    Veuillez retrouner a la page de connection
+  </div>
 </template>
 
 <script>
@@ -96,6 +99,7 @@ export default {
               pseudo: localStorage.getItem("pseudo"),
               isAdmin: localStorage.getItem("isAdmin"),
               avatarURL: localStorage.getItem("avatarURL"),
+              isLogged: localStorage.getItem("isLogged"),
               imageURL: new FormData(),
               show: false,
             },
@@ -269,6 +273,12 @@ console.log(this.$dayjs().format('YYYY-MM-DD HH:mm:ss'))
   border-radius: 1rem;
 }
 
+
+.avatar{
+  object-fit: cover;
+width: 90%;
+}
+
 #container_posts{
   width: 100%;
   display: flex;
@@ -304,11 +314,8 @@ justify-content: center;
 }
 
 .view_post{
-  width: 95%;
+  width: 90%;
   height: 6rem;
-  resize: vertical;
-  margin-right: 1rem;
-  align-self: center;
   border: none;
 }
 

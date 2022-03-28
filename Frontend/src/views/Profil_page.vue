@@ -1,5 +1,5 @@
 <template>
-    <div id="Profil_page">
+    <div id="Profil_page" v-if="form.isLogged == 1">
         <h1>Bienvenue {{form.pseudo}}</h1>
         <div class="contenair_profil">
             <div class="photo_profil">Ton avatar
@@ -22,11 +22,17 @@
                             <form  v-on:submit.prevent="deleteProfil">
                                 <button class="button_delete">Supprimer</button>
                             </form>
+                            <form  v-on:submit.prevent="logout">
+                                <button class="button_delete">logout</button>
+                            </form>
                         </div>
                     </div>
                </form>
             </div>
     </div>
+      <div v-else>
+    Veuillez retrouner a la page de connection
+  </div>
 </template>
 
 <script>
@@ -42,7 +48,8 @@ export default {
                     pseudo: localStorage.getItem('pseudo'),
                     email: '',
                     avatarURL:localStorage.getItem('avatarURL'),
-                    alt_text:''
+                    alt_text:'',
+                    isLogged: localStorage.getItem('isLogged'),
                 },
             }
         },
@@ -77,6 +84,10 @@ export default {
             .catch(e => {
                 console.log("err:",e);
             });
+        },
+        logout(){
+            localStorage.setItem("isLogged",0);
+            //this.$router.push('/Inscription_page');
         },
         mounted(){
         
@@ -196,5 +207,29 @@ background-repeat: no-repeat;
     width: 35%;
     height: 2rem;
     align-self: center;
+}
+
+
+@media screen and (max-width: 768px){
+#Profil_page{
+    background-image: none;
+    width: 100%;
+}
+
+.contenair_profil{
+    width: 50%;
+}
+
+}
+@media screen and (max-width: 425px){
+#Profil_page{
+    background-image: none;
+    width: 100%;
+}
+
+.contenair_profil{
+    width: 80%;
+}
+
 }
 </style>

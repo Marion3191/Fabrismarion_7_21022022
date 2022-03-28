@@ -47,7 +47,7 @@ exports.getAllPost = (req, res) => {
 
 exports.getAllCom = (req, res) => {
   mysqlconnection.query(
-    "SELECT * FROM `commentaires` WHERE 1", (error, results) => {
+    "SELECT *,  DATE_FORMAT(timestamp,'%d/%m/%Y %H:%i') as dateformat FROM `commentaires` WHERE 1", (error, results) => {
       if(error){
         console.log(error);
         res.status(500).json({error});

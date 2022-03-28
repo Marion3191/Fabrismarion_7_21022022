@@ -18,17 +18,7 @@ exports.uploadPics = (req, res) => {
         res.status(200).json({message : "Profil Modifié"});
       }
   })
-  /*
-  try {
-    if (req.file) {
-      req.file.toFile(path.resolve(req.file.destination , req.file.filename));
-      // Vous pouvez utiliser ces variables pour faire des insertions en base de données ou autre
-      let filename = req.file.filename;
-    }
-    res.send('Upload fini');
-  } catch (e) {
-    res.status(400).json(e);
-  }*/
+ 
 };
 
 exports.getPicsUrl = (req, res) => {
@@ -58,10 +48,22 @@ exports.modifyProfil = (req,res) => {
 };
 
 exports.delete = (req,res) => {
-  var usrID = req.params.usrID;
-  console.log(usrID);
+  let dataCom = [
+    req.params.usrID,
+  ]
+
+  var sql_string ="DELETE FROM `posts` WHERE `posts`.`id_user` = ";
+  sql_string += dataCom;
+  sql_string += ";";
+  sql_string += "DELETE FROM `users` WHERE `id_user` =";
+  sql_string += dataCom;
+  sql_string += ";";
+  sql_string += "DELETE FROM `commentaires` WHERE `commentaires`.`id_user` = ";
+  sql_string += dataCom;
+
+  console.log(sql_string);
   mysqlconnection.query(
-    "DELETE FROM `users` WHERE `id_user` =?",usrID, (error, results)=>{
+    sql_string, (error, results)=>{
       if(error){
         console.log(error);
         res.status(500).json({error});
