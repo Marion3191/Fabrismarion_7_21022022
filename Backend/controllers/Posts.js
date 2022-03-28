@@ -30,7 +30,9 @@ exports.createPost = (req,res, next) => {
 
 exports.getAllPost = (req, res) => {
   mysqlconnection.query(
-    "SELECT * FROM `posts` WHERE 1", (error, results) => {
+    `SELECT *, DATE_FORMAT(timestamp,'%d/%m/%Y %H:%i'
+    ) as dateformat
+    FROM posts order by timestamp desc `, (error, results) => {
       if(error){
         console.log(error);
         res.status(500).json({error});

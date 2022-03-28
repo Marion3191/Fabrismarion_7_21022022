@@ -11,7 +11,7 @@
 					<label for="password">Password</label>
 					<input id="password" class="form-control" type="password" v-model="form.password" required/>
 				</div>
-				<button class="button" type="submit">Envoyer</button>
+				<button class="button" type="submit">Connecter</button>
 			</form>
       <p> Pas encore de compte ? s'inscrire ! </p>
 		</div>
@@ -39,11 +39,11 @@ export default {
             axios.post('http://localhost:3000/api/auth/login', this.form)
                  .then((res) => {
                     //console.log(res,res.userId, res.token, res.data.token, "teste3");
-                    //redirection a cette endroi
                     console.log(res);  
                         localStorage.setItem('id_user',JSON.stringify( res.data.userId));
                         localStorage.setItem('token', res.data.token);
                         this.test();
+                        this.$router.push('/Posts_page')
                  })
                  .catch((error) => {
                     console.log(error, "teste4")

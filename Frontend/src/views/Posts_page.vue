@@ -17,7 +17,8 @@
       <div v-for="post in posts" :key="post" class="posts">
         <div v-for="item in post" :key="item" class="message">
           <div class ="usrProfile">
-            <p> {{item.pseudo}} {{item.timestamp}} </p>
+            <p> {{item.pseudo}} {{ item.dateformat}}
+ </p>
           </div>
           <div class="container-button" v-if="item.id_user == form.id_user || form.isAdmin == 1">
             <img class="avatar" :src='item.imageURL'/>
@@ -79,6 +80,9 @@
 
 <script>
 
+
+
+
 import axios from 'axios';
 
 export default {
@@ -103,6 +107,25 @@ export default {
 
 
     methods:{
+      lodpost(){
+                axios.get(`http://localhost:3000/api/Posts`)
+            .then(response => {
+              console.log(response.data);
+                this.posts = response.data;
+            })
+            .catch(e => {
+                console.log("err:",e);
+            });
+        axios.get(`http://localhost:3000/api/Posts/com`)
+            .then(response => {
+              console.log(response.data);
+                this.coms = response.data;
+            })
+            .catch(e => {
+                console.log("err:",e);
+            });
+    
+      },
         submitForm(){
           let img = document.getElementById('image').files[0];
           var formData = new FormData();
@@ -114,6 +137,7 @@ export default {
             axios.post('http://localhost:3000/api/Posts', formData)
                  .then((res) => {
                     console.log(res);
+                    this.lodpost()
                  })
                  .catch((error) => {
                     console.log(error)
@@ -126,6 +150,7 @@ export default {
             axios.post('http://localhost:3000/api/Posts/com'+postID, this.form)
                  .then((res) => {
                     console.log(+res);
+                    this.lodpost()
                  })
                  .catch((error) => {
                     console.log(error)
@@ -192,27 +217,10 @@ export default {
           this.isAdmin = localStorage.isAdmin;
         }
       },
-     created() {
-        axios.get(`http://localhost:3000/api/Posts`)
-        /*, {
-    headers: { Authorization: `Bearer ${localStorage.getItem("token")}` }
-}*/
-            .then(response => {
-              console.log(response.data);
-                this.posts = response.data;
-            })
-            .catch(e => {
-                console.log("err:",e);
-            });
-        axios.get(`http://localhost:3000/api/Posts/com`)
-            .then(response => {
-              console.log(response.data);
-                this.coms = response.data;
-            })
-            .catch(e => {
-                console.log("err:",e);
-            });
-    }
+     created() {this.lodpost()
+console.log(this.$dayjs().format('YYYY-MM-DD HH:mm:ss'))
+
+}
 }
 
 </script>

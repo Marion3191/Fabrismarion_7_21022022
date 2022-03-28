@@ -15,7 +15,7 @@
 					<label class="title"  for="password">Password</label>
 					<input id="password" class="form-control" type="password" v-model="form.password" required/>
 				</div>
-				<button class="button" type="submit">Envoyer</button>
+				<button class="button" type="submit">Connecter</button>
 				</form>
 		</div>
   </div>
