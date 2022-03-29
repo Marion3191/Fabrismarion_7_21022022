@@ -15,7 +15,7 @@
 					<label class="title"  for="password">Password</label>
 					<input id="password" class="form-control" type="password" v-model="form.password" required/>
 				</div>
-				<button class="button" type="submit">Connecter</button>
+				<button class="button" type="submit">Inscription</button>
 				</form>
 		</div>
   </div>
@@ -41,7 +41,7 @@ export default {
             axios.post('http://localhost:3000/api/auth/signup', this.form)
                  .then((res) => {
                     console.log(res);
-                    this.$router.push('/Posts_page')
+                    this.$router.push('/#')
                  })
                  .catch((error) => {
                   console.log(error);

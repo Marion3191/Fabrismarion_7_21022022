@@ -78,8 +78,11 @@ export default {
               var usrID = localStorage.getItem('id_user');
             console.log(usrID);
             axios.get(`http://localhost:3000/api/Profil/Delete/`+usrID)
+ 
             .then(response => {
               console.log(response);
+              localStorage.setItem("isLogged",0);
+                this.$router.push('/Inscription_page');
             })
             .catch(e => {
                 console.log("err:",e);
@@ -87,7 +90,7 @@ export default {
         },
         logout(){
             localStorage.setItem("isLogged",0);
-            //this.$router.push('/Inscription_page');
+            this.$router.push('/#');
         },
         mounted(){
         

@@ -166,6 +166,7 @@ export default {
             axios.post('http://localhost:3000/api/Posts/delete/'+postID, this.form)
                  .then((res) => {
                     console.log(res);
+                    this.lodpost()
                  })
                  .catch((error) => {
                     console.log(error)
@@ -181,6 +182,7 @@ export default {
             axios.post('http://localhost:3000/api/Posts/update/'+params, this.form)
                  .then((res) => {
                     console.log(res);
+                    this.lodpost()
                  })
                  .catch((error) => {
                     console.log(error)
@@ -192,6 +194,7 @@ export default {
             axios.post('http://localhost:3000/api/Posts/com/delete/'+comID, this.form)
                  .then((res) => {
                     console.log(res);
+                    this.lodpost()
                  })
                  .catch((error) => {
                     console.log(error)
@@ -206,6 +209,7 @@ export default {
             axios.post('http://localhost:3000/api/Posts/com/update/'+params, this.form)
                  .then((res) => {
                     console.log(res);
+                    this.lodpost()
                  })
                  .catch((error) => {
                     console.log(error)
