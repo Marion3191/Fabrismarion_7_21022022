@@ -1,14 +1,15 @@
 const mysql = require('mysql');
-
+require('dotenv').config();
 
 //connexion a mysql
 const mysqlconnection = mysql.createConnection({
-    host:'localhost',
-    database: 'reseau_social',
-    user: 'root',
-    password: '',
-    multipleStatements: true
-  });
+  //process.env.ConectDB
+  host:'localhost',
+  database: 'reseau_social',
+  user: 'root',
+  password: '',
+  multipleStatements: true
+});
   
   mysqlconnection.connect((err) => {
     if(err){

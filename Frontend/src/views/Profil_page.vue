@@ -23,7 +23,7 @@
                                 <button class="button_delete">Supprimer</button>
                             </form>
                             <form  v-on:submit.prevent="logout">
-                                <button class="button_delete">logout</button>
+                                <button class="button_delete">LogOut</button>
                             </form>
                         </div>
                     </div>
@@ -202,6 +202,7 @@ background-repeat: no-repeat;
     width: 35%;
     height: 2rem;
     align-self: center;
+    margin-bottom: 1rem;
 }
 
 
@@ -210,6 +211,7 @@ background-repeat: no-repeat;
     width: 35%;
     height: 2rem;
     align-self: center;
+    margin-bottom: 1rem;
 }
 
 
@@ -223,6 +225,22 @@ background-repeat: no-repeat;
     width: 50%;
 }
 
+.button_save{
+    font-size: 1.2rem;
+    width: 45%;
+    height: 2rem;
+    align-self: center;
+    margin-bottom: 1rem;
+}
+
+
+.button_delete{
+    font-size: 1.2rem;
+    width: 45%;
+    height: 2rem;
+    align-self: center;
+     margin-bottom: 1rem;
+}
 }
 @media screen and (max-width: 425px){
 #Profil_page{
@@ -234,5 +252,35 @@ background-repeat: no-repeat;
     width: 80%;
 }
 
+.input_pseudo{
+    width: 8rem;
+    height: 2rem;
+    margin-left: 1rem;
+}
+
+
+.input_email{
+    width: 8rem;
+     height: 2rem;
+    margin-left: 1rem;
+}
+
+
+.button_save{
+    font-size: 1.2rem;
+    width: 45%;
+    height: 2rem;
+    align-self: center;
+    margin-bottom: 1rem;
+}
+
+
+.button_delete{
+    font-size: 1.2rem;
+    width: 45%;
+    height: 2rem;
+    align-self: center;
+     margin-bottom: 1rem;
+}
 }
 </style>

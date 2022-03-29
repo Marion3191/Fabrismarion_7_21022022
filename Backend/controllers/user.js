@@ -29,10 +29,12 @@ exports.signup = (req, res) => {
         }
       }
     )
+    
     })
 
     .catch(error => res.status(404).json( error));
 };
+
   exports.login = (req, res) => {
     const email =  req.body.email;
   

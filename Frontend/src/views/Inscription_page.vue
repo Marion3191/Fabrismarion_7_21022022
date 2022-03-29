@@ -40,11 +40,16 @@ export default {
         submitForm(){
             axios.post('http://localhost:3000/api/auth/signup', this.form)
                  .then((res) => {
-                    console.log(res);
-                    this.$router.push('/#')
+                    if(res.data.error.errno == 1062){
+                        console.log(res.data.error.errno);
+                        alert("Email déja éxistant !! ");
+                    }else{
+                      console.log(res);
+                      this.$router.push('/#');
+                    }
                  })
                  .catch((error) => {
-                  console.log(error);
+                  console.log("ici",error);
                  }).finally(() => {
                      //Perform action in always
                  });
