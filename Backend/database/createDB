@@ -1,0 +1,161 @@
+-- phpMyAdmin SQL Dump
+-- version 5.1.1
+-- https://www.phpmyadmin.net/
+--
+-- Hôte : 127.0.0.1
+-- Généré le : mer. 30 mars 2022 à 09:49
+-- Version du serveur : 10.4.22-MariaDB
+-- Version de PHP : 8.1.2
+
+SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+START TRANSACTION;
+SET time_zone = "+00:00";
+
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8mb4 */;
+
+--
+-- Base de données : `reseau_social`
+--
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `commentaires`
+--
+
+CREATE TABLE `commentaires` (
+  `id_commentaire` int(11) NOT NULL,
+  `id_post` int(11) NOT NULL,
+  `id_user` int(11) NOT NULL,
+  `timestamp` timestamp NOT NULL DEFAULT current_timestamp(),
+  `commentaire` longtext NOT NULL,
+  `pseudo` text NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Déchargement des données de la table `commentaires`
+--
+
+INSERT INTO `commentaires` (`id_commentaire`, `id_post`, `id_user`, `timestamp`, `commentaire`, `pseudo`) VALUES
+(72, 108, 3, '2022-03-28 19:10:51', 'salut louis !!', 'Hodor'),
+(78, 108, 26, '2022-03-29 08:20:01', 'bonjour', 'doris'),
+(79, 88, 26, '2022-03-29 08:20:08', 'super', 'doris'),
+(93, 142, 3, '2022-03-29 11:27:08', 'trop mignon', 'joser'),
+(94, 135, 26, '2022-03-29 11:27:46', 'Bonne idée ', 'doris'),
+(95, 142, 26, '2022-03-29 11:28:14', 'J\'ai un petit chiot comme celui la ', 'doris'),
+(96, 142, 31, '2022-03-29 13:34:08', 'bonjour', 'Hodor'),
+(98, 88, 32, '2022-03-29 13:45:28', 'bonjour hodor', 'projet7');
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `posts`
+--
+
+CREATE TABLE `posts` (
+  `id_post` int(11) NOT NULL,
+  `id_user` int(11) NOT NULL,
+  `pseudo` longtext NOT NULL,
+  `message` longtext NOT NULL,
+  `timestamp` timestamp NOT NULL DEFAULT current_timestamp(),
+  `imageURL` longtext NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Déchargement des données de la table `posts`
+--
+
+INSERT INTO `posts` (`id_post`, `id_user`, `pseudo`, `message`, `timestamp`, `imageURL`) VALUES
+(88, 3, 'Hodor', 'Bonjour je suis m\'embre de groupomania ', '2022-03-24 23:00:00', ''),
+(142, 26, 'doris', 'bonjour a tous', '2022-03-29 08:19:11', 'http://localhost:3000/images/téléchargement.jpg1648541951722.jpg'),
+(151, 31, 'Hodor', 'envie de voyage', '2022-03-29 13:33:34', 'http://localhost:3000/images/image-licorice.jpg1648560814796.jpg');
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `users`
+--
+
+CREATE TABLE `users` (
+  `id_user` int(11) NOT NULL,
+  `pseudo` varchar(100) NOT NULL,
+  `email` varchar(100) NOT NULL,
+  `password` varchar(100) NOT NULL,
+  `isAdmin` tinyint(4) NOT NULL DEFAULT 0,
+  `urlAvatar` longtext NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Déchargement des données de la table `users`
+--
+
+INSERT INTO `users` (`id_user`, `pseudo`, `email`, `password`, `isAdmin`, `urlAvatar`) VALUES
+(3, 'Hodor', 'Hodor@poule.fr', '$2b$10$AYmHCCQVp.NuSadtAIbN5erjB2dBq54eUYKE3D6HlhomOY0g44OSa', 1, ''),
+(18, 'martin', 'martin@groupomania.fr', '$2b$10$qN9XY9SMDKR3mr/C9s4w2ux1q4uf3mhvcayKdwslvgAPO3CskRueW', 0, ''),
+(26, 'doris', 'doris@groupomania.fr', '$2b$10$6TznWvUVT24VtTDXFPrERegqqGOEHnwdJhLRDYWvYtTRcX3DQWFOO', 0, ''),
+(31, 'joser', 'joser@groupomania.fr', '$2b$10$9ERfcsIhVfrZDjxtUeMUDOEfqNEIfyQ2mkOveHujyiS9hHeyW.Os.', 0, '');
+
+--
+-- Index pour les tables déchargées
+--
+
+--
+-- Index pour la table `commentaires`
+--
+ALTER TABLE `commentaires`
+  ADD PRIMARY KEY (`id_commentaire`);
+
+--
+-- Index pour la table `posts`
+--
+ALTER TABLE `posts`
+  ADD PRIMARY KEY (`id_post`),
+  ADD KEY `id_user` (`id_user`);
+
+--
+-- Index pour la table `users`
+--
+ALTER TABLE `users`
+  ADD PRIMARY KEY (`id_user`),
+  ADD UNIQUE KEY `email` (`email`);
+
+--
+-- AUTO_INCREMENT pour les tables déchargées
+--
+
+--
+-- AUTO_INCREMENT pour la table `commentaires`
+--
+ALTER TABLE `commentaires`
+  MODIFY `id_commentaire` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=99;
+
+--
+-- AUTO_INCREMENT pour la table `posts`
+--
+ALTER TABLE `posts`
+  MODIFY `id_post` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=152;
+
+--
+-- AUTO_INCREMENT pour la table `users`
+--
+ALTER TABLE `users`
+  MODIFY `id_user` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=54;
+
+--
+-- Contraintes pour les tables déchargées
+--
+
+--
+-- Contraintes pour la table `posts`
+--
+ALTER TABLE `posts`
+  ADD CONSTRAINT `posts_ibfk_1` FOREIGN KEY (`id_user`) REFERENCES `users` (`id_user`) ON DELETE CASCADE ON UPDATE CASCADE;
+COMMIT;
+
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

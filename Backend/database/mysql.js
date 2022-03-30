@@ -3,7 +3,6 @@ require('dotenv').config();
 
 //connexion a mysql
 const mysqlconnection = mysql.createConnection({
-  //process.env.ConectDB
   host:'localhost',
   database: 'reseau_social',
   user: 'root',
